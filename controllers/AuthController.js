@@ -10,7 +10,7 @@ exports.autenticarUsuario = async (req, res) => {
         return res.status(400).json({ errores: errores.array() });
     }
 
-    const { correo, pasword } = req.body;
+    const { correo, password } = req.body;
 
     try {
         //validar si hay un usuario conectado
@@ -19,7 +19,7 @@ exports.autenticarUsuario = async (req, res) => {
             return res.status(400).json({ msg: "El usuario no esta registrado" });
         }
         //revisamos el password
-        const passwordCorrecto = await bcryptjs.compare(pasword, usuario.password);
+        const passwordCorrecto = await bcryptjs.compare(password, usuario.password);
         if (!passwordCorrecto) {
             return res.status(400).json({ msg: "La contraseña es incorrecta" });
         }
