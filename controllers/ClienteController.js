@@ -7,7 +7,7 @@ exports.agregarCliente = async(req,res)=>{
     try{
         let clientes = new cliente(req.body);
         await clientes.save();
-        res.send('Cliente agregado')
+        res.send({msg:'Cliente agregado'})
     }catch(err){
         console.log(err);
         res.status(500).send('Error al intentar agregar cliente');
@@ -18,7 +18,7 @@ exports.agregarCliente = async(req,res)=>{
 exports.mostrarClientes = async(req, res)=>{
     try{
         const clientes = await cliente.find();
-        res.json(clientes)
+        res.json({clientes})
     }catch(err){
         console.log(err);
         res.status(500).send('Error al consultar clientes');
@@ -78,7 +78,7 @@ exports.editarCliente = async (req,res)=>{
         res.json(clienteAEditar);
     }catch(err){
         console.log(err);
-        res.status(500).send('Error al editar el cliente');
+        res.status(500).send({msg:'Error al editar el cliente'});
     }
 }
 

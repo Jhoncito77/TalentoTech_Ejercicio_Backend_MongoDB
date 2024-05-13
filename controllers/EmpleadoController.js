@@ -6,7 +6,7 @@ exports.agregarEmpleado = async(req,res)=>{
     try{
         let empleado = new Empleado(req.body);
         await empleado.save();
-        res.send('Empleado agregado')
+        res.send({msg:'Empleado agregado'})
     }catch(err){
         console.log(err);
         res.status(500).send('Error al intentar agregar un empleado');
@@ -17,7 +17,7 @@ exports.agregarEmpleado = async(req,res)=>{
 exports.mostrarEmpleados = async(req, res)=>{
     try{
         const empleados = await Empleado.find();
-        res.json(empleados)
+        res.json({empleados})
     }catch(err){
         console.log(err);
         res.status(500).send('Error al consultar los empleados');
@@ -45,7 +45,7 @@ exports.eliminarEmpleado = async(req,res)=>{
     try{
         let empleado = await Empleado.findById(req.params.id);
         if(!empleado){
-            res.status(404).json({msg:'El empelado a eliminar no existe'});
+            res.status(404).json({msg:'El empleado a eliminar no existe'});
             return;
         }
         await Empleado.findOneAndDelete({_id: req.params.id});
